@@ -1,0 +1,113 @@
+import 'package:first1/Welcome_page.dart';
+import 'package:flutter/material.dart';
+import 'buttons.dart';
+class Login extends StatefulWidget {
+  const Login({super.key});
+
+  @override
+  State<Login> createState() => _LoginState();
+}
+
+class _LoginState extends State<Login> {
+  final _formKey= GlobalKey<FormState>();
+  TextEditingController phonenumcontroller= TextEditingController();
+  TextEditingController passcontroller=TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Form(
+        key: _formKey,
+        child: SingleChildScrollView(
+          child: Column(children: [
+            const SizedBox(
+              height: 40,
+            ),
+            SizedBox(
+              width: 200,
+              height: 180,
+              child: Image.asset("assets/coffee1.png"),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(10),
+              child: TextFormField(
+                controller: phonenumcontroller,
+                keyboardType: TextInputType.phone,
+                decoration: const InputDecoration(
+                  labelText: "Phone Number",
+                ),
+                validator: (value){
+                  String pattern = r'(^(?:[+0]9)?[0-9]{10,12}$)';
+                  RegExp regExp = new RegExp (pattern);
+                  if (value == null || value.isEmpty) {
+                    return "Please enter a phone number";
+                  } else if (regExp.hasMatch (value!)) {
+                    return null;
+                  } else {
+                    return "Invalid phone number";
+                  }
+                },
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(10),
+              child: TextFormField(
+                decoration: const InputDecoration(labelText: "Password"),
+                controller: passcontroller,
+                obscureText: true,
+                validator: (value){
+                  if (value == null || value.isEmpty) {
+                    return "Please enter a password";
+                  } else if (value.length<8){
+                    return "Invalid password";
+                  }else{
+                    return null ;
+                  }
+                },
+              ),
+            ),
+            const Padding(padding:EdgeInsets.all(10)),
+            Button(label: "Log In",
+              colorbutton: Colors.blue,
+              colortext: Colors.white,
+              fontsize: 18,
+              onTap: (){
+                if(_formKey.currentState!.validate()){
+                  Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => WelcomePage(
+                      phonenumber : phonenumcontroller.text,
+                      password : passcontroller.text,
+                    )),
+                  );
+                  passcontroller.clear();
+                }
+              },
+            ),
+            const Padding(padding:EdgeInsets.all(15)),
+            InkWell(
+              onTap: (){
+                print("Forget Password");
+              },
+              child: const Text(
+                "Forget password?No yawa. Tap me",
+                style: TextStyle(
+                  color: Colors.blueGrey,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            const Padding(padding:EdgeInsets.all(15)),
+            Button(label: "No Account? Sign Up",
+              colorbutton: Colors.grey,
+              colortext: Colors.black54,
+              fontsize: 16,
+              onTap: (){
+                print("Sign Up");
+              },
+            ),
+          ]),
+        ),
+      ),
+    );
+  }
+}
