@@ -1,4 +1,4 @@
-import 'package:first1/Welcome_page.dart';
+import 'homeScreen.dart';
 import 'package:flutter/material.dart';
 import 'buttons.dart';
 class Login extends StatefulWidget {
@@ -38,7 +38,7 @@ class _LoginState extends State<Login> {
                 ),
                 validator: (value){
                   String pattern = r'(^(?:[+0]9)?[0-9]{10,12}$)';
-                  RegExp regExp = new RegExp (pattern);
+                  RegExp regExp = RegExp (pattern);
                   if (value == null || value.isEmpty) {
                     return "Please enter a phone number";
                   } else if (regExp.hasMatch (value!)) {
@@ -73,9 +73,9 @@ class _LoginState extends State<Login> {
               fontsize: 18,
               onTap: (){
                 if(_formKey.currentState!.validate()){
-                  Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => WelcomePage(
-                      phonenumber : phonenumcontroller.text,
+                  Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (context) => homeScreen(
+                      phoneNumber : phonenumcontroller.text,
                       password : passcontroller.text,
                     )),
                   );
