@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ItemCard extends StatefulWidget {
@@ -23,7 +22,7 @@ class _ItemCardState extends State<ItemCard> {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Icon(Icons.food_bank),
+            const Icon(Icons.food_bank),
             Text(widget.name),
             SizedBox(height: MediaQuery.of(context).size.height*.1,),
             Text("${widget.price}\$")

@@ -1,15 +1,13 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'items.dart';
-class defaultPage extends StatefulWidget {
-  const defaultPage({Key? key}) : super(key:key);
-
+class DefaultPage extends StatefulWidget {
+  const DefaultPage({Key? key}) : super(key:key);
   @override
-  State<defaultPage> createState() => _defultpageState();
+  State<DefaultPage> createState() => _defultpageState();
 }
 
-class _defultpageState extends State<defaultPage> {
-  List<String> ProductName=[
+class _defultpageState extends State<DefaultPage> {
+  List<String> productName=[
     "Coffee",
     "Burger",
     "Pizaa",
@@ -21,7 +19,7 @@ class _defultpageState extends State<defaultPage> {
     "DoubleBurger",
     "BigCompo",
   ];
-  List<String> ProductPrice=[
+  List<String> productPrice=[
   "10",
   "20",
   "30",
@@ -36,12 +34,12 @@ class _defultpageState extends State<defaultPage> {
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
-        itemCount:ProductName.length,
+        itemCount:productName.length,
         itemBuilder:(context,index){
-          return ItemCard(name: ProductName[index], price: ProductPrice[index]);
+          return ItemCard(name: productName[index], price: productPrice[index]);
         },
       separatorBuilder: (context, index){
-          return Divider();
+          return const Divider();
       },
     );
   }

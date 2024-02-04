@@ -1,4 +1,4 @@
-import 'homeScreen.dart';
+import 'home_screen.dart';
 import 'package:flutter/material.dart';
 import 'buttons.dart';
 class Login extends StatefulWidget {
@@ -10,7 +10,7 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   final _formKey= GlobalKey<FormState>();
-  TextEditingController phonenumcontroller= TextEditingController();
+  TextEditingController emailnumcontroller= TextEditingController();
   TextEditingController passcontroller=TextEditingController();
 
   @override
@@ -31,24 +31,21 @@ class _LoginState extends State<Login> {
             Padding(
               padding: const EdgeInsets.all(10),
               child: TextFormField(
-                controller: phonenumcontroller,
-                keyboardType: TextInputType.phone,
+                controller: emailnumcontroller,
+                keyboardType: TextInputType.emailAddress,
                 decoration: const InputDecoration(
-                  labelText: "Phone Number",
+                  labelText: "Email",
                 ),
-                validator: (value){
-                  String pattern = r'(^(?:[+0]9)?[0-9]{10,12}$)';
-                  RegExp regExp = RegExp (pattern);
-                  if (value == null || value.isEmpty) {
-                    return "Please enter a phone number";
-                  } else if (regExp.hasMatch (value!)) {
-                    return null;
-                  } else {
-                    return "Invalid phone number";
+                validator: (value) {
+                  if (value ==null || value.isEmpty) {
+                    return 'Please enter an email address';
+                  } else if (!RegExp(r'^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$').hasMatch(value)) {
+                    return 'Please enter a valid email address';
                   }
+                  return null; // Return null if the input is valid
                 },
+              )
               ),
-            ),
             Padding(
               padding: const EdgeInsets.all(10),
               child: TextFormField(
@@ -74,8 +71,8 @@ class _LoginState extends State<Login> {
               onTap: (){
                 if(_formKey.currentState!.validate()){
                   Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (context) => homeScreen(
-                      phoneNumber : phonenumcontroller.text,
+                    MaterialPageRoute(builder: (context) => HomeScreen(
+                      email : emailnumcontroller.text,
                       password : passcontroller.text,
                     )),
                   );
